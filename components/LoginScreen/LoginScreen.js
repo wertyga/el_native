@@ -42,7 +42,7 @@ class LogInScreenComponent extends Component {
       });
     }
 
-    componentDidUpdate({ navigation: { navigate } }) {
+    componentDidUpdate({ navigation }) {
       if (this.props.navitagion)
       this.setState({ errors: {} });
     }
@@ -172,7 +172,8 @@ class LogInScreenComponent extends Component {
 LogInScreenComponent.propTypes = {
     userAuth: PropTypes.func.isRequired, //Login and registration action
     screen: PropTypes.string.isRequired,
-    containerStyle: PropTypes.object
+    containerStyle: PropTypes.object,
+    navigation:
 };
 
 export const LoginScreen = connect(null, { userAuth, userSignUp })(LogInScreenComponent);
