@@ -10,6 +10,8 @@ export {
 } from './auth';
 export { setPowerPercents } from './socket';
 export {
+    confirmChanging,
+    subscribing,
   updatePrice,
   updatePairsPrice,
   setSeenPower,

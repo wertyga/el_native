@@ -28,9 +28,7 @@ class UserScreenComponent extends Component {
     this.state = {
       addingPair: false,
       optionItems: this.collectPairs(),
-      // tradePairs: this.props.tradePairs || [],
       optionValue: '',
-      // settings: false,
       loading: false,
       modalVisible: true,
       errors: {},
@@ -86,16 +84,7 @@ class UserScreenComponent extends Component {
           if(errors) this.setState({ errors: errors, loading: false })
         })
   };
-  //
-  // onClose = () => { // Close modal window when setting sign price
-  //   this.setState({
-  //     optionValue: '',
-  //     addingPair: false,
-  //     optionItems: this.collectPairs()
-  //   })
-  // };
-  //
-  //
+
   // goToWhales = () => { // Fetch whales orders book
   //   this.setState({ loading: true });
   //   this.props.getWhaleOrders()
@@ -148,22 +137,6 @@ class UserScreenComponent extends Component {
   }
 
   render() {
-
-    // const menu = [
-    //   {
-    //     text: 'Get whales orders',
-    //     onClick: () => this.goToWhales(),
-    //
-    //   },
-    //   {
-    //     text: 'Get power symbols',
-    //     onClick: () => this.props.history.replace(`/user/${this.props.user._id}/power-orders`),
-    //     className: {
-    //       sign: this.props.newPowerPercent
-    //     }
-    //   }
-    // ];
-
     const { errors, optionValue, optionItems, loading } = this.state;
     const { tradePairs } = this.props;
     return (

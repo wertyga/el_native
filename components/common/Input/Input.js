@@ -51,8 +51,8 @@ export class Input extends Component{
     }
 
     render() {
-        const { style: styles = {}, label, name, floatText, error,
-            value, placeholder, secureTextEntry } = this.props;
+        const { name, floatText, error,
+            value, placeholder, secureTextEntry, disabled } = this.props;
         const { focus } = this.state;
 
         const animateTextStyle = {
@@ -80,6 +80,7 @@ export class Input extends Component{
                         style={inputStyle}
                         secureTextEntry={secureTextEntry}
                         placeholderTextColor={style.placeholderTextColor}
+                        editable={disabled}
                     />
                 </View>
                 {!!error && <Text style={style.errorInput}>{error}</Text>}
@@ -100,6 +101,7 @@ Input.propTypes = {
     disabled: PropTypes.bool, // Disabled of Input
     onClick: PropTypes.func, // Function for invoke some behavior when clicked on input
     onFocus: PropTypes.func, // Function to react on focus event
+    onBlur: PropTypes.func, // Function to react on blur event
     secureTextEntry: PropTypes.bool, // Function to react on focus event
     // ref: PropTypes.element, // Reference to this Input
 

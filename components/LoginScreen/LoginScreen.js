@@ -163,7 +163,7 @@ class LogInScreenComponent extends Component {
                     </TouchableOpacity>
                 </View>
 
-              {!this.isSignup && <Link style={style.remind} to="RemindScreen">Forgot password?</Link>}
+              {!this.isSignup && <Link style={style.remind} to="RemindScreen" text="Forgot password?" />}
             </View>
         );
     };

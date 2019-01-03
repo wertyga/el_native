@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, Animated } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
@@ -16,7 +17,24 @@ class UserMenuComponent extends Component {
       menuShow: false,
       menuRight: new Animated.Value(-200),
     };
-    this.menuItems = ['Settings', 'Whale orders', 'Power symbols', 'About'];
+    this.menuItems = [
+        {
+            name: 'Settings',
+            screen: 'Settings',
+        },
+        {
+            name: 'Whale orders',
+            screen: 'Whales',
+        },
+        {
+            name: 'Power symbols',
+            screen: 'Power',
+        },
+        {
+            name: 'About',
+            screen: 'About',
+        },
+    ];
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,13 +47,18 @@ class UserMenuComponent extends Component {
             duration: 200,
           }
       ).start();
-    };
+    }
   }
 
   onPress = () => {
     this.setState({
       menuShow: !this.state.menuShow,
     });
+  }
+
+  menuNavigate = (screen) => {
+      const { navigation: { navigate } } = this.props;
+      navigate(screen);
   }
 
   render() {
@@ -51,15 +74,19 @@ class UserMenuComponent extends Component {
               {...buttonStyle}
           />
           <Animated.View style={menuSlideStyle}>
-            {this.menuItems.map(item => {
+            {this.menuItems.map(({ name, screen }) => {
               return (
-                  <Text key={item} style={menuItemStyle}>{item}</Text>
+                  <Text key={name} style={menuItemStyle} onPress={() => this.menuNavigate(screen)}>{name}</Text>
               );
             })}
           </Animated.View>
         </View>
     );
   }
+}
+
+UserMenuComponent.propTypes = {
+    navigation: PropTypes.object.isRequired,
 }
 
 export const UserMenu = withNavigation(UserMenuComponent);

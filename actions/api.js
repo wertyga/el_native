@@ -85,10 +85,13 @@ export const fetchPairPrice = symbol => () => {
 };
 
 export const confirmChanging = (id, sign, text) => dispatch => {
-  return axios.post(host(`/api/edit-user-data`), { id, sign, text, token: getToken() })
-      .then(res => {
-        return dispatch(setUser(res.data.user))
-      })
+    return getToken()
+        .then(token => {
+            return axios.post(host(`/api/edit-user-data`), { id, sign, text, token })
+                .then(res => {
+                    return dispatch(setUser(res.data.user))
+                })
+        })
 };
 
 export const subscribing = (userID, data) => dispatch => {

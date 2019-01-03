@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "devtools": "react-devtools"
+    "devtools": "react-devtools",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -34,8 +35,13 @@
     "eslint": "^5.11.1",
     "eslint-plugin-react": "^7.12.1",
     "eslint-plugin-react-native": "^3.5.0",
+    "jest": "^23.6.0",
     "prop-types": "^15.6.2",
+    "react-test-renderer": "^16.7.0",
     "redux-devtools-extension": "^2.13.7"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "react-native"
+  }
 }

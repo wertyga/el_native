@@ -8,9 +8,9 @@ import {
   Remind,
   VerifyUser,
   SocketWrapper,
-  UserScreen,
   AddingPair,
   UserMenu,
+    UserSettings,
 } from 'components';
 
 const Navigation = createStackNavigator(
@@ -40,7 +40,7 @@ const Navigation = createStackNavigator(
         }),
       },
       MainScreen: {
-        screen: props => {
+        screen: (props) => {
           return (
               <SocketWrapper
                   {...props}
@@ -64,6 +64,13 @@ const Navigation = createStackNavigator(
           },
         }),
       },
+
+        Settings: {
+            screen: props => <UserSettings {...props} containerStyle={globalStyle.container}/>,
+            navigationOptions: () => ({
+                title: 'User settings',
+            }),
+        },
     },
 
     {
