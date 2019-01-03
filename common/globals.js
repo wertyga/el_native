@@ -17,13 +17,14 @@ export const globalStyle = {
   secondaryColorDisabled: '#886f28',
   secondaryColorLight: '#ffc504',
   container: {
-    backgroundColor: '#4e676f',
+    backgroundColor: '#435a62',
     paddingHorizontal: 40,
     flex: 1,
     width: '100%',
   },
   text: {
     color: '#edecee',
+    fontSize: 15,
   },
   errorColor: 'red',
   globalError: {

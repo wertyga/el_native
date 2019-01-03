@@ -15,3 +15,5 @@ export const SET_POWER_PERCENT = 'SET_POWER_PERCENT';
 // Power symbols
 export const SET_POWERS_TO_BE_SEEN = 'SET_POWERS_TO_BE_SEEN';
 export const DELETE_POWER = 'DELETE_POWER';
+// Menu state
+export const MENU_STATE = 'MENU_STATE';

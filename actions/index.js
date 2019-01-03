@@ -10,8 +10,8 @@ export {
 } from './auth';
 export { setPowerPercents } from './socket';
 export {
-    confirmChanging,
-    subscribing,
+  confirmChanging,
+  subscribing,
   updatePrice,
   updatePairsPrice,
   setSeenPower,
@@ -21,3 +21,5 @@ export {
   setSignPrice,
   fetchPairPrice,
 } from './api';
+
+export { setMenuState } from './menu';

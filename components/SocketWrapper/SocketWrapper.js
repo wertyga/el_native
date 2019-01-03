@@ -12,7 +12,7 @@ import { Loading, Toggle } from 'common-components';
 import { setPowerPercents, getUserData, updatePairsPrice, setSeenPower, clearUser } from 'actions';
 import { clearSession } from 'common';
 
-import { UserScreen } from 'components';
+import { UserScreen, UserMenu } from 'components';
 
 import { socketStyles } from './socketWrapperStyles.style';
 
@@ -104,12 +104,13 @@ class SocketWrapperComponent extends Component {
 
   render() {
 
-    const { containerStyle, componentName } = this.props;
+    const { containerStyle, componentName, menuState } = this.props;
     const mainStyles = { ...socketStyles.main, ...containerStyle };
 
     return (
         <View style={mainStyles}>
           {this.state.loading && <Loading />}
+          <UserMenu menuState={menuState} />
           {componentName === 'UserScreen' && <UserScreen />}
           {/*{componentName === 'Whales' && <Whales />}*/}
           {/*{componentName === 'PowerPercents' && <PowerPercents />}*/}

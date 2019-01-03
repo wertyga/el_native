@@ -1,7 +1,7 @@
 import { globalStyle } from 'common';
 import { StyleSheet } from 'react-native';
 
-const { colorBgDark, border, fontColor } = globalStyle;
+const { colorBgDark, fontColor } = globalStyle;
 
 export const userMenuStyle = StyleSheet.create({
   buttonStyle: {
@@ -12,7 +12,7 @@ export const userMenuStyle = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     right: 0,
-    top: 60,
+    top: 10,
     width: 200,
   },
   menuItemStyle: {
@@ -20,8 +20,9 @@ export const userMenuStyle = StyleSheet.create({
     paddingLeft: 10,
     color: fontColor,
     flexWrap: 'nowrap',
-    flex: 1,
+    flex: 2,
     marginBottom: 3,
     backgroundColor: colorBgDark,
+    zIndex: 1,
   },
 })

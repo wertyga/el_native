@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import { Text, TouchableHighlight, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button } from 'react-native-elements';
 
 import { clearSession } from 'common';
 
@@ -27,10 +27,8 @@ export class ChangableInput extends Component {
         if(this.state.editing !== prevState.editing) {
             const { isEditing, name } = this.props;
             if (this.state.editing) {
-                this.input.focus();
                 isEditing(name);
             } else {
-                this.input.blur();
                 isEditing('');
             }
         }
@@ -79,17 +77,23 @@ export class ChangableInput extends Component {
     render() {
 
         const { loading, value, errors, editing, text } = this.state;
-        const { name, disabled, floatText } = this.props;
+        const { name, disabled, floatText, textStyle, inputStyle } = this.props;
+        const { check, wrapperIconsStyle, times, buttonStyle, underlayColor } = style;
+
+        const checkStyle = check(loading);
+        const timesStyle = times(loading);
 
         return (
             <TouchableHighlight
                 className="ChangableInput"
                 onPress={this.setEditing}
+                underlayColor={underlayColor}
             >
-                {editing &&
+                {editing ?
                     <View>
                         <Input
-                            inputRef={node => this.input = node}
+                            inputStyle={inputStyle}
+                            inputRef={this.input}
                             onChange={this.onChangeInput}
                             value={value}
                             disabled={loading || disabled}
@@ -97,20 +101,37 @@ export class ChangableInput extends Component {
                             floatText={floatText}
                             error={errors}
                             onFocus={this.onFocus}
+                            autoFocus
                         />
-                        <Icon.Button
-                            {...style.check(loading)}
-                            name="check-circle"
-                            onPress={this.confirm}
-                        />
-                        <Icon.Button
-                            {...style.times(loading)}
-                            name="times-circle"
-                            onPress={this.cancelChanging}
-                        />
-                    </View>
+                        <View style={wrapperIconsStyle}>
+                            <Button
+                                raised
+                                disabled={loading}
+                                icon={{
+                                  name: 'check',
+                                  type: 'font-awesome',
+                                }}
+                                {...checkStyle}
+                                buttonStyle={buttonStyle}
+                                title="Confirm"
+                                onPress={this.confirm}
+                            />
+                            <Button
+                                raised
+                                disabled={loading}
+                                icon={{
+                                  name: 'times',
+                                  type: 'font-awesome',
+                                }}
+                                {...timesStyle}
+                                buttonStyle={buttonStyle}
+                                title="Deny"
+                                onPress={this.cancelChanging}
+                            />
+                        </View>
+                    </View> :
+                    <Text className="text" style={textStyle}>{text}</Text>
                 }
-                {!editing && <Text className="text">{text}</Text>}
             </TouchableHighlight>
         );
     }
@@ -119,6 +140,8 @@ export class ChangableInput extends Component {
 ChangableInput.defaultProps = {
     clearError: noop,
     validateText: noop,
+    textStyle: {},
+    inputStyle: {},
 }
 
 ChangableInput.propTypes = {
@@ -130,4 +153,6 @@ ChangableInput.propTypes = {
     clearError: PropTypes.func,
     isEditing: PropTypes.func, // Sign if component is editing now
     name: PropTypes.string, // Input field name
+    textStyle: PropTypes.object,
+    inputStyle: PropTypes.object,
 };

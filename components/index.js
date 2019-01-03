@@ -8,3 +8,4 @@ export { UserMenu } from './UserScreen/UserMenu';
 export { AddingPair } from './UserScreen/AddingPair';
 export { Pair } from './Pair/Pair';
 export { UserSettings } from './UserSettings/UserSettings';
+export { MenuIcon } from './HeaderMenu/HeaderMenuIcon';

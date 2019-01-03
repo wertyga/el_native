@@ -36,23 +36,11 @@ class UserScreenComponent extends Component {
   };
 
   componentDidUpdate(prevProps) {
-  //   if(this.props.loading !== prevProps.loading) { // Set loading from wrapper socket component
-  //     this.setState({ loading: this.props.loading });
-  //   };
-  //   if(this.props.errors !== prevProps.errors) { // Update errors fom wrapper socket component
-  //     this.setState({ errors: this.props.errors });
-  //   };
-  //
     if(this.props.pairs !== prevProps.pairs) { // Update trade pairs
       this.setState({
         optionItems: this.collectPairs()
       });
-    };
-
-  //   if(this.props.tradePairs !== prevProps.tradePairs) {
-  //     this.setState({ tradePairs: this.props.tradePairs });
-  //   };
-  //
+    }
   };
 
   getPairToAdd = () => { // Get and check pair for adding sign
@@ -113,6 +101,7 @@ class UserScreenComponent extends Component {
 
     this.setState({
       optionValue: pair.name || '',
+      errors: {},
     }, () => Keyboard.dismiss());
   };
 
@@ -160,7 +149,6 @@ class UserScreenComponent extends Component {
           <TouchableOpacity
               className="primary"
               onPress={this.addPair}
-              disabled={!optionValue}
               style={userScreenStyles.button}
           >
             <Text style={userScreenStyles.buttonText}>Add pair</Text>
@@ -176,16 +164,18 @@ class UserScreenComponent extends Component {
         </View>
     );
   }
-};
+}
 
-// UserScreenComponent.propTypes = {
-//   updatePairsPrice: PropTypes.func.isRequired, //Update price of all pairs
-//   deletePair: PropTypes.func.isRequired, //Delete pair by id
-//   deletePercentPair: PropTypes.func.isRequired, //Delete percent pair by user id
-//   user: PropTypes.object.isRequired, //User data object
-//   pairs: PropTypes.array.isRequired, //All available trade pairs
-//   newPowerPercent: PropTypes.bool.isRequired, // Determinate is new power order is appeared
-// };
+UserScreenComponent.propTypes = {
+  // updatePairsPrice: PropTypes.func.isRequired, //Update price of all pairs
+  deletePair: PropTypes.func.isRequired, //Delete pair by id
+  deletePercentPair: PropTypes.func.isRequired, //Delete percent pair by user id
+  user: PropTypes.object.isRequired, //User data object
+  pairs: PropTypes.array.isRequired, //All available trade pairs
+  tradePairs: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
+  // newPowerPercent: PropTypes.bool.isRequired, // Determinate is new power order is appeared
+};
 
 const mapState = state => {
   return {

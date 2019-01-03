@@ -10,7 +10,8 @@ import {
   SocketWrapper,
   AddingPair,
   UserMenu,
-    UserSettings,
+  UserSettings,
+  MenuIcon,
 } from 'components';
 
 const Navigation = createStackNavigator(
@@ -52,7 +53,7 @@ const Navigation = createStackNavigator(
         navigationOptions: ({ navigation: { getParam } }) => ({
           headerTitle: <Toggle label="Logged" open onChange={getParam('onLogout')} username={getParam('username')}/>,
           headerLeft: null,
-          headerRight: <UserMenu />,
+          headerRight: <MenuIcon />,
         }),
       },
 
@@ -65,12 +66,13 @@ const Navigation = createStackNavigator(
         }),
       },
 
-        Settings: {
-            screen: props => <UserSettings {...props} containerStyle={globalStyle.container}/>,
-            navigationOptions: () => ({
-                title: 'User settings',
-            }),
-        },
+      Settings: {
+        screen: props => <UserSettings {...props} containerStyle={globalStyle.container}/>,
+        navigationOptions: () => ({
+          title: 'User settings',
+        }),
+      },
+
     },
 
     {

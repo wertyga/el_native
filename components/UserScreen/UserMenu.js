@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Animated } from 'react-native';
+import { connect } from 'react-redux';
+import { View, Text, Animated, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { setMenuState } from 'actions';
 
 import { userMenuStyle } from './UserMenu.style';
 
@@ -14,7 +14,6 @@ class UserMenuComponent extends Component {
     super(props);
 
     this.state = {
-      menuShow: false,
       menuRight: new Animated.Value(-200),
     };
     this.menuItems = [
@@ -37,27 +36,23 @@ class UserMenuComponent extends Component {
     ];
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.menuShow !== prevState.menuShow) {
-      const { menuShow, menuRight } = this.state;
+  componentDidUpdate(prevProps) {
+    if (this.props.menuState !== prevProps.menuState) {
+      const { menuRight } = this.state;
+      const { menuState } = this.props;
       Animated.timing(
           menuRight,
           {
-            toValue: menuShow ? 0 : -200,
+            toValue: menuState ? 0 : -200,
             duration: 200,
           }
       ).start();
     }
   }
 
-  onPress = () => {
-    this.setState({
-      menuShow: !this.state.menuShow,
-    });
-  }
-
   menuNavigate = (screen) => {
       const { navigation: { navigate } } = this.props;
+      this.props.setMenuState();
       navigate(screen);
   }
 
@@ -66,22 +61,27 @@ class UserMenuComponent extends Component {
     const menuSlideStyle = { ...menuStyles, right: this.state.menuRight };
 
     return (
-        <View>
-          <Icon.Button
-              name="ellipsis-v"
-              size={30}
-              onPress={this.onPress}
-              {...buttonStyle}
-          />
-          <Animated.View style={menuSlideStyle}>
-            {this.menuItems.map(({ name, screen }) => {
-              return (
-                  <Text key={name} style={menuItemStyle} onPress={() => this.menuNavigate(screen)}>{name}</Text>
-              );
-            })}
-          </Animated.View>
-        </View>
+        <Animated.View style={menuSlideStyle}>
+          {this.menuItems.map(({ name, screen }) => {
+            return (
+                <Text
+                    pointerEvents="none"
+                    key={name}
+                    style={menuItemStyle}
+                    onPress={() => this.menuNavigate(screen)}
+                >
+                  {name}
+                </Text>
+            );
+          })}
+        </Animated.View>
     );
+  }
+}
+
+const mapState = ({ menu }) => {
+  return {
+    menuState: menu
   }
 }
 
@@ -89,4 +89,4 @@ UserMenuComponent.propTypes = {
     navigation: PropTypes.object.isRequired,
 }
 
-export const UserMenu = withNavigation(UserMenuComponent);
+export const UserMenu = withNavigation(connect(mapState, { setMenuState })(UserMenuComponent));

@@ -16,9 +16,9 @@ class LogInScreenComponent extends Component {
 
         this.isSignup = props.screen === 'signup';
         this.inputFields = this.isSignup ? ['username', 'email', 'password', 'passConf'] : ['username', 'password'];
-        const inputs = this.inputFields.reduce((a, b) => ({ ...a, [b]: '' }), {});
+        this.initInputsState = this.inputFields.reduce((a, b) => ({ ...a, [b]: '' }), {});
         this.state = {
-            ...inputs,
+            ...this.initInputsState,
             errors: {},
             loading: false
         };
@@ -86,7 +86,7 @@ class LogInScreenComponent extends Component {
 
           this.props[authAction]({...sendObject, url })
               .then(res => {
-                this.setState({ loading: false });
+                this.setState({ loading: false, ...this.initInputsState });
                 const routeParams = this.getNavigateParams((res.data || {})._id);
                 navigate(routeParams.route, routeParams.params);
               })
@@ -173,7 +173,7 @@ LogInScreenComponent.propTypes = {
     userAuth: PropTypes.func.isRequired, //Login and registration action
     screen: PropTypes.string.isRequired,
     containerStyle: PropTypes.object,
-    navigation:
+    navigation: PropTypes.object,
 };
 
 export const LoginScreen = connect(null, { userAuth, userSignUp })(LogInScreenComponent);

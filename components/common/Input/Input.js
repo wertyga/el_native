@@ -52,7 +52,7 @@ export class Input extends Component{
 
     render() {
         const { name, floatText, error,
-            value, placeholder, secureTextEntry, disabled } = this.props;
+            value, placeholder, secureTextEntry, disabled, autoFocus } = this.props;
         const { focus } = this.state;
 
         const animateTextStyle = {
@@ -80,7 +80,8 @@ export class Input extends Component{
                         style={inputStyle}
                         secureTextEntry={secureTextEntry}
                         placeholderTextColor={style.placeholderTextColor}
-                        editable={disabled}
+                        editable={!disabled}
+                        autoFocus={autoFocus}
                     />
                 </View>
                 {!!error && <Text style={style.errorInput}>{error}</Text>}

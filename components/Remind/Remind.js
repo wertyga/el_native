@@ -78,7 +78,7 @@ class RemindComponent extends React.Component {
       this.setState({ loading: true });
       this.props.changePass(inputsObj)
           .then(() => {
-            this.props.history.replace('/')
+            this.props.navigation.navigate('LoginScreen');
           })
           .catch(err => {
             this.setState({
@@ -182,7 +182,7 @@ class RemindComponent extends React.Component {
                   <TouchableOpacity
                       style={remindStyles.submitButton}
                       disabled={this.state.loading}
-                      onClick={this.changePass}
+                      onPress={this.changePass}
                   >
                     <Text style={remindStyles.text}>Change password</Text>
                   </TouchableOpacity> :
@@ -199,7 +199,7 @@ class RemindComponent extends React.Component {
           </View>
         </View>
     );
-  };
-};
+  }
+}
 
 export const Remind = connect(null, { remindPass, changePass })(RemindComponent);
