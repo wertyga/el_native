@@ -64,8 +64,13 @@ function pairDeleteAction(id) {
 };
 
 export const getWhaleOrders = (amount, type, quoteAsset) => dispatch => { // Get Whales orders
-  return axios.post(host('/api/get-whales'), { amount: Number(amount), type, token: getToken(), quoteAsset })
-      .then(res => dispatch(getWhalesAction(res.data)))
+    return getToken()
+        .then(token => {
+            return axios.post(host('/api/get-whales'), { amount: Number(amount), type, token, quoteAsset })
+                .then(res => {
+                    dispatch(getWhalesAction(res.data));
+                })
+        })
 };
 function getWhalesAction(orders) {
   return {
