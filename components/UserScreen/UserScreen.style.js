@@ -5,7 +5,8 @@ const { button, text, globalError, buttonText, buttonDanger, buttonSuccess } = g
 
 export const userScreenStyles = StyleSheet.create({
   pairsListStyle: {
-    marginBottom: 20,
+    marginBottom: 70,
+    marginTop: 20,
   },
   buttonDanger,
   buttonSuccess,

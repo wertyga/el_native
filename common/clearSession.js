@@ -1,10 +1,15 @@
 import { AsyncStorage } from 'react-native';
 
 export const clearSession =  (self, err) => {
-  const error = err.response ? err.response.data : err.message;
+  const error = {
+    message: err.response ? err.response.data : err.message,
+    status: err.response ? err.response.status : 500,
+  }
   if(err.response && err.response.status === 401) {
-    return AsyncStorage.removeItem('token').then(() => false);
-  } else {
-    return error;
-  };
+    AsyncStorage.removeItem('token');
+    error.redirect = true;
+  }
+
+  return error;
+
 };

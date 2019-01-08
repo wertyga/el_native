@@ -1,13 +1,32 @@
 import React, { Component, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
-// import  from 'react-native-vector-icons';
 
 import { updatePrice } from 'actions';
 
 import { pairStyles } from './Pair.style';
 
-class PairComponent extends PureComponent {
+export const PairDown = ({ prevPrice, signPrice, style = {} }) => {
+  const { downStyle, priceTextStyle, priceStyle, itemViewStyle } = pairStyles;
+  const mainStyle = { ...downStyle, ...style };
+  return (
+    <View style={mainStyle}>
+
+      <View style={itemViewStyle}>
+        <Text style={priceTextStyle}>Previous price</Text>
+        <Text style={priceStyle}>{prevPrice}</Text>
+      </View>
+
+      <View style={itemViewStyle}>
+        <Text style={priceTextStyle}>Purpose price</Text>
+        <Text style={priceStyle}>{signPrice}</Text>
+      </View>
+
+    </View>
+  );
+}
+
+export class Pair extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -15,7 +34,7 @@ class PairComponent extends PureComponent {
       name: `${props.baseAsset}/${props.quoteAsset}`,
       diffPrice: 0,
       errors: '',
-      loading: false
+      loading: false,
     };
   };
 
@@ -53,66 +72,51 @@ class PairComponent extends PureComponent {
 
   render() {
 
-    const { baseAsset, quoteAsset, signPrice, price, prevPrice, sign, updatedAt } = this.props;
+    const { baseAsset, quoteAsset, price, sign, updatedAt, style = {} } = this.props;
     const { diffPrice, loading } = this.state;
 
     const {
-      itemViewStyle,
       textBold,
       textLight,
       priceTextStyle,
       priceStyle,
       upperStyle,
-      downStyle,
-      wrapper,
-      diffPriceNegative,
-      diffPricePositive,
+      wrapperStyle,
       diffPriceWrappeStyle,
       reachedPriceStyle,
       isUpPriceStyle,
       itemViewTitle,
-      loadingStyle,
+      signStyle,
+      wrapperContent,
     } = pairStyles;
 
+    const mainStyle = { ...wrapperStyle, ...style };
+
     return (
-        <TouchableOpacity
-             onPress={this.onClose}
-             style={wrapper(sign, loading)}
-             // onMouseDown={e => e.currentTarget.classList.add('active')}
-             // onMouseUp={e => e.currentTarget.classList.remove('active')}
+        <View
+             style={mainStyle}
         >
-          {!!this.state.errors && <Text className="error">{this.state.errors}</Text>}
 
-          <View style={upperStyle}>
-            <View style={itemViewTitle}>
-              <Text style={textBold}>{baseAsset}</Text>
-              <Text style={textLight}>{` / ${quoteAsset}`}</Text>
+          {sign && <View style={signStyle}/>}
+
+          <View style={wrapperContent}>
+            {!!this.state.errors && <Text className="error">{this.state.errors}</Text>}
+
+            <View style={upperStyle}>
+              <View style={itemViewTitle}>
+                <Text style={textBold}>{baseAsset}</Text>
+                <Text style={textLight}>{` / ${quoteAsset}`}</Text>
+              </View>
+
+              <Text style={priceStyle}>{price}</Text>
+
+              <View style={diffPriceWrappeStyle}>
+                <Text style={isUpPriceStyle(diffPrice, loading)}>{diffPrice}</Text>
+              </View>
+
             </View>
 
-            <Text style={priceStyle}>{price}</Text>
-
-            <View style={diffPriceWrappeStyle}>
-              <Text style={isUpPriceStyle(diffPrice, loading)}>{diffPrice}</Text>
-              {/*<i className="fas fa-arrow-alt-circle-up"></i>*/}
-            </View>
-
-          </View>
-
-          <View style={downStyle}>
-
-            <View>
-              <Text style={priceTextStyle}>Previous price</Text>
-              <Text style={priceStyle}>{prevPrice}</Text>
-            </View>
-
-            <View style={itemViewStyle}>
-              <Text style={priceTextStyle}>Purpose price</Text>
-              <Text style={priceStyle}>{signPrice}</Text>
-            </View>
-
-          </View>
-
-          {sign &&
+            {sign &&
             <View style={reachedPriceStyle}>
               <Text style={priceTextStyle}>Reached time</Text>
               <Text style={priceStyle}>
@@ -122,12 +126,10 @@ class PairComponent extends PureComponent {
                 {updatedAt.split('.')[0].split('T')[1]}
               </Text>
             </View>
-          }
+            }
+          </View>
 
-
-        </TouchableOpacity>
+        </View>
     );
   };
 };
-
-export const Pair = connect(null, { updatePrice })(PairComponent);

@@ -1,9 +1,11 @@
 import { globalStyle } from 'common';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width: windowWidth } = Dimensions.get('window');
 
 const { fontColor, positiveColor, negativeColor, border, colorSuccess, disableBgColor } = globalStyle;
 
-export const pairStyles = StyleSheet.create({
+export const pairStyles = {
   loadingStyle: {
     position: 'absolute',
     backgroundColor: disableBgColor,
@@ -17,30 +19,31 @@ export const pairStyles = StyleSheet.create({
     alignSelf: 'flex-start',
     alignItems: 'center',
   },
+  itemViewStyle: {
+    flexDirection: 'row',
+  },
+  wrapperContent: {
+    justifyContent: 'center',
+    flex: 1,
+  },
   signStyle: {
-    width: 7,
+    width: 5,
+    marginRight: 10,
     backgroundColor: positiveColor,
-    height: 20,
   },
   isUpPriceStyle: (diffPrice, loading) => ({
     color: (diffPrice >= 0 && !loading) ? positiveColor : (!loading ? negativeColor : fontColor),
     fontWeight: 'bold',
   }),
   reachedPriceStyle: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  wrapper: (sign, loading) => {
-    const isSign = sign && !loading;
-    return {
-      borderColor: isSign ? 'transparent' : border.borderColor,
-      backgroundColor: isSign ? colorSuccess : (loading ? disableBgColor : 'transparent'),
-      paddingHorizontal: 5,
-      paddingBottom: 7,
-      marginTop: 20,
-      borderBottomWidth: 1,
-      position: 'relative',
-    }
+  wrapperStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
   },
   textBold: {
     fontWeight: 'bold',
@@ -50,6 +53,7 @@ export const pairStyles = StyleSheet.create({
   priceTextStyle: {
     color: fontColor,
     fontWeight: 'bold',
+    marginRight: 10,
   },
   priceStyle: {
     color: fontColor,
@@ -66,8 +70,5 @@ export const pairStyles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
   },
-  downStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
+  downStyle: {},
+};

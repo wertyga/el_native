@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "expo": "^31.0.2",
     "link": "^0.1.5",
     "lodash": "^4.17.11",
@@ -18,8 +19,13 @@
     "react-devtools-core": "^3.4.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
+    "react-native-gesture-handler": "^1.0.12",
     "react-native-material-ui": "^1.30.1",
+    "react-native-swipe-gestures": "^1.0.3",
+    "react-native-swipe-list-view": "^1.5.1",
+    "react-native-swiper": "^1.5.14",
     "react-native-vector-icons": "^6.1.0",
+    "react-native-view-overflow": "0.0.4",
     "react-navigation": "^3.0.7",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
@@ -30,8 +36,11 @@
     "why-did-you-update": "^1.0.6"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.2.3",
+    "@babel/plugin-transform-runtime": "^7.2.0",
     "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
+    "babel-preset-react-native": "^4.0.1",
     "eslint": "^5.11.1",
     "eslint-plugin-react": "^7.12.1",
     "eslint-plugin-react-native": "^3.5.0",

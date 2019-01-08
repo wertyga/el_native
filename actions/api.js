@@ -120,7 +120,9 @@ const setSeenPowersAction = powerId => {
 
 export const fetchPowerSymbols = userId => dispatch => {
   return axios.get(host(`/api/${userId}/get-powers`))
-      .then(res => dispatch(setPercent(res.data)))
+      .then(res => {
+        dispatch(setPercent(res.data));
+      })
 };
 
 export const deletePower = (powerId, userId) => dispatch => {

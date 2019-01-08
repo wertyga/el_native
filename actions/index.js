@@ -20,6 +20,9 @@ export {
   deletePercentPair,
   setSignPrice,
   fetchPairPrice,
+  fetchPowerSymbols,
+  deleteAllPower,
+  deletePower,
 } from './api';
 
 export { setMenuState } from './menu';

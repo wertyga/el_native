@@ -1,11 +1,25 @@
+import { Dimensions } from 'react-native';
+
+const isWithLarge = Dimensions.get('window').width > 600;
+
 const negativeColor = '#aa1700';
 const positiveColor = '#009b22';
+const backgroundColor = '#435a62';
+const fontColor = '#edecee';
+
+const containerStyle = {
+  backgroundColor,
+  paddingHorizontal: isWithLarge ? '20%' : 50,
+  flex: 1,
+  paddingVertical: 50,
+}
 
 export const globalStyle = {
   positiveColor,
   negativeColor,
+  backgroundColor,
   colorBgDark: '#30444c',
-  fontColor: '#edecee',
+  fontColor,
   secondColor: '#ff9800',
   disableBgColor: '#b5b3b3',
   colorSuccess: '#004e19',
@@ -16,15 +30,14 @@ export const globalStyle = {
   disableTextColorLighter: '#7ca0ad',
   secondaryColorDisabled: '#886f28',
   secondaryColorLight: '#ffc504',
-  container: {
-    backgroundColor: '#435a62',
-    paddingHorizontal: 40,
-    flex: 1,
-    width: '100%',
+  container: containerStyle,
+  scrollContainer: {
+    ...containerStyle,
+    paddingVertical: 0,
   },
   text: {
-    color: '#edecee',
-    fontSize: 15,
+    color: fontColor,
+    fontSize: 17,
   },
   errorColor: 'red',
   globalError: {
@@ -34,6 +47,7 @@ export const globalStyle = {
     textAlign: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
+    fontSize: 15,
   },
   button: {
     paddingVertical: 10,
@@ -59,5 +73,3 @@ export const globalStyle = {
     fontWeight: 'bold',
   },
 };
-
-global.host = (request) => `http://46.101.209.10:3005${request}`;

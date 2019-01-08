@@ -9,9 +9,11 @@ import {
   VerifyUser,
   SocketWrapper,
   AddingPair,
-  UserMenu,
   UserSettings,
   MenuIcon,
+  UserScreen,
+  Whales,
+  PowerPercents,
 } from 'components';
 
 const Navigation = createStackNavigator(
@@ -47,7 +49,9 @@ const Navigation = createStackNavigator(
                   {...props}
                   containerStyle={globalStyle.container}
                   componentName="UserScreen"
-              />
+              >
+                <UserScreen />
+              </SocketWrapper>
           );
         },
         navigationOptions: ({ navigation: { getParam } }) => ({
@@ -57,8 +61,22 @@ const Navigation = createStackNavigator(
         }),
       },
 
+      WhalesScreen: {
+        screen: (props) => {
+          return (
+              <Whales {...props} containerStyle={globalStyle.container}/>
+          );
+        },
+        navigationOptions: () => ({
+          title: 'Whale\'s orders',
+          headerRight: <MenuIcon />,
+        }),
+      },
+
       UserAddPair: {
-        screen: props => <AddingPair {...props} containerStyle={globalStyle.container} />,
+        screen: props => (
+              <AddingPair {...props} containerStyle={globalStyle.container} />
+        ),
         navigationOptions: () => ({
           headerStyle: {
             display: 'none',
@@ -70,6 +88,15 @@ const Navigation = createStackNavigator(
         screen: props => <UserSettings {...props} containerStyle={globalStyle.container}/>,
         navigationOptions: () => ({
           title: 'User settings',
+          headerRight: <MenuIcon />,
+        }),
+      },
+
+      PowerScreen: {
+        screen: props => <PowerPercents {...props} />,
+        navigationOptions: () => ({
+          title: 'Bounce symbols',
+          headerRight: <MenuIcon />,
         }),
       },
 

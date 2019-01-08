@@ -5,12 +5,13 @@ import { View, Text, Switch } from 'react-native';
 
 import { confirmChanging, subscribing } from 'actions';
 import { validateEmail } from 'common';
-import { Loading, ChangableInput } from 'common-components';
+import { Loading, ChangableInput, WithUserMenu } from 'common-components';
 
 import { userSettingsStyle } from './UserSettings.style';
 
 const { mainStyle, textStyle, inputWrapperStyle, rowWrapperStyle, colorizeTextStyle, changableTextStyle } = userSettingsStyle;
 
+@WithUserMenu
 class UserSettingsComponent extends Component {
     constructor(props) {
         super(props);

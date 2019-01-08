@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 
 import { remindPass, changePass } from 'actions';
 
 import { inputsValidation } from 'common';
-
 import { Input, Loading } from 'common-components';
+import { Button } from 'react-native-elements';
 
 import { remindStyles } from './remind.style';
 
@@ -179,21 +179,21 @@ class RemindComponent extends React.Component {
 
             <View>
               {this.state.changePass ?
-                  <TouchableOpacity
-                      style={remindStyles.submitButton}
+                  <Button
+                      buttonStyle={remindStyles.submitButton}
                       disabled={this.state.loading}
                       onPress={this.changePass}
-                  >
-                    <Text style={remindStyles.text}>Change password</Text>
-                  </TouchableOpacity> :
+                      title="Change password"
+                      textStyle={remindStyles.text}
+                  /> :
 
-                  <TouchableOpacity
-                      style={remindStyles.submitButton}
-                      onPress={this.onSubmit}
-                      disabled={this.state.loading}
-                  >
-                    <Text style={remindStyles.text}>Confirm</Text>
-                  </TouchableOpacity>
+                  <Button
+                    buttonStyle={remindStyles.submitButton}
+                    onPress={this.onSubmit}
+                    disabled={this.state.loading}
+                    title="Confirm"
+                    textStyle={remindStyles.text}
+                  />
               }
             </View>
           </View>

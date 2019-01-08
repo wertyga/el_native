@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Text, View, Keyboard, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Text, View, Keyboard, AsyncStorage } from 'react-native';
 
+import { Button } from 'react-native-elements';
 import { Loading, Input, Link } from "common-components";
 import { inputsValidation } from 'common';
 
@@ -145,22 +146,23 @@ class LogInScreenComponent extends Component {
                 </View>
                 <View>
                   {!this.isSignup &&
-                      <TouchableOpacity
-                          onPress={this.onSubmit}
-                          style={style.submitButton}
-                      >
-                          <Text style={style.submitButtonText}>Sign-In</Text>
-                      </TouchableOpacity>
+                    <Button
+                      raised
+                      onPress={this.onSubmit}
+                      buttonStyle={style.submitButton}
+                      containerViewStyle={{ backgroundColor: 'transparent' }}
+                      title="Sign-In"
+                      textStyle={style.submitButtonText}
+                    />
                   }
-
-                    <TouchableOpacity
-                        onPress={this.signup}
-                        style={style.submitButton}
-                    >
-                        <Text style={style.submitButtonText}>
-                            Sign-Up/Registration
-                        </Text>
-                    </TouchableOpacity>
+                  <Button
+                    raised
+                    onPress={this.signup}
+                    buttonStyle={style.submitButton}
+                    containerViewStyle={{ backgroundColor: 'transparent' }}
+                    title="Sign-Up/Registration"
+                    textStyle={style.submitButtonText}
+                  />
                 </View>
 
               {!this.isSignup && <Link style={style.remind} to="RemindScreen" text="Forgot password?" />}

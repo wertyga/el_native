@@ -4,6 +4,8 @@ import { configureStore } from "common";
 
 import { AppNavigator } from "../navigation";
 
+import '../../common/globalVars';
+
 const store = configureStore();
 export class RootComponent extends React.Component {
     render() {

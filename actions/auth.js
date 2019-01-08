@@ -46,10 +46,11 @@ export function getUserData(id) { // Get user data when reload/enter "/api/user/
     return getToken()
         .then(token => {
           return axios.post(host(`/user/${id}`), { token })
-              .then(res => {
-                dispatch(setUser(res.data.user));
-                dispatch(setPairs(res.data.pairs));
-                dispatch(setTradePairs(res.data.tradePairs));
+              .then(({ data }) => {
+                dispatch(setUser(data.user));
+                dispatch(setPairs(data.pairs));
+                dispatch(setTradePairs(data.tradePairs));
+                dispatch(setPercent(data.powerPercents));
 
                 return true;
               })
@@ -74,13 +75,13 @@ export const clearUser = () => dispatch => { // Logout user
   return getToken()
       .then(token => (
          axios.post(host('/auth/logout'), { token })
-            .then(() => {
-              dispatch(clearUserAction());
-              return Promise.all([
-                AsyncStorage.removeItem('token'),
-                AsyncStorage.removeItem('id'),
-              ])
-            })
+           .finally((e) => {
+             dispatch(clearUserAction());
+             return Promise.all([
+               AsyncStorage.removeItem('token'),
+               AsyncStorage.removeItem('id'),
+             ])
+           })
           )
       )
 };

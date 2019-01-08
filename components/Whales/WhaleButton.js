@@ -2,16 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
 
-export const WhaleButton = ({ text, onPress, active }) => {
-    return (
-        <Button className={classnames({
-            active: active,
-        })}
-                onPress={onPress}
-                title={text}
-                // onPress={() => self.setState({ [chosen]: sign })}
-         />
+import { whalesStyle } from './Whales.style';
 
+const { buttonStyle, textBoldStyle } = whalesStyle;
+
+export const WhaleButton = ({ text, onPress, active }) => {
+    const style = buttonStyle(active);
+    return (
+      <Button
+        raised
+        buttonStyle={style}
+        textStyle={textBoldStyle}
+        onPress={onPress}
+        title={text}
+      />
     );
 };
 

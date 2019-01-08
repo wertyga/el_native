@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, Keyboard, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Keyboard, Dimensions, Animated } from 'react-native';
+
+import { SwipeListView } from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { FlatList, RectButton } from 'react-native-gesture-handler';
+
 import { withNavigation } from 'react-navigation';
+import { Button, List, ListItem } from 'react-native-elements';
 
 import { clearSession } from 'common';
 
+
 import { clearUser, deletePair, getWhaleOrders, deletePercentPair, setPowerPercents } from 'actions';
 
-import { Loading, Options } from 'common-components';
-import { Pair } from 'components';
-// import Option from '../common/Option/Option';
-// import Toggle from '../common/Toggle/Toggle';
-// import ButterMenu from '../common/ButterMenu/ButterMenu';
-// import AddingPair from '../AddingPair/AddingPair';
-// import Pair from '../Pair/Pair';
-// import Settings from '../Settings/Setting';
-// import Settings from '../Settings/Setting';
+import { Loading, Options, DeleteSwipeList } from 'common-components';
+import { Pair, PairDown } from 'components';
 
 import { userScreenStyles } from './UserScreen.style';
+
+// const AnimatedPairDown = Animated.createAnimatedComponent(PairDown);
 
 class UserScreenComponent extends Component {
   constructor(props) {
@@ -63,28 +67,15 @@ class UserScreenComponent extends Component {
       })
     }
   };
-  //
-  //
+
   deletePair = id => { // Delete pair
     return this.props.deletePair(id)
+      .then(() => this.state.errors && this.setState({ errors: '' }))
         .catch(err => {
           const errors = clearSession(this, err);
-          if(errors) this.setState({ errors: errors, loading: false })
+          if(errors) this.setState({ errors: errors })
         })
   };
-
-  // goToWhales = () => { // Fetch whales orders book
-  //   this.setState({ loading: true });
-  //   this.props.getWhaleOrders()
-  //       .then(() => {
-  //         this.props.history.replace(`/user/${this.props.user._id}/whales-orders`);
-  //       })
-  //       .catch(err => {
-  //         const errors = clearSession(this, err);
-  //         if(errors) this.setState({ errors: errors, loading: false })
-  //       })
-  // };
-  //
 
   collectPairs = (pairs = this.props.pairs, filter) => {
     const result = pairs
@@ -116,18 +107,81 @@ class UserScreenComponent extends Component {
     });
   }
 
-  renderPairsList = ({ item }) => {
-    return (
-        <Pair
-            onClose={this.deletePair}
-            { ...item }
-        />
-    );
-  }
+  // renderPairsList = ({ item }) => {
+  //   return {
+  //     component: Pair,
+  //     props: {
+  //       onClose: this.deletePair,
+  //       ...item
+  //     },
+  //   };
+  // }
+  // renderRightActions = ({ _id }, progress, dragX) => {
+  //   const translateX = dragX.interpolate({
+  //     inputRange: [-300, 0],
+  //     outputRange: [13, 320],
+  //   });
+  //   return (
+  //     <Animated.View
+  //       style={{
+  //         transform: [{ translateX }],
+  //         flex: 1,
+  //         width: '100%',
+  //         paddingLeft: 0,
+  //       }}
+  //     >
+  //       <Button
+  //         buttonStyle={userScreenStyles.buttonDanger}
+  //         title="Delete"
+  //         onPress={this.deletePair.bind(this, _id)}
+  //       />
+  //     </Animated.View>
+  //   );
+  // };
+  // renderLeftActions = (item, progress, dragX) => {
+  //   const translateX = dragX.interpolate({
+  //     inputRange: [0, 300],
+  //     outputRange: [-200, -7],
+  //   });
+  //   return (
+  //   <Animated.View
+  //     style={{
+  //       transform: [{ translateX }],
+  //       flex: 1,
+  //       width: '100%',
+  //       paddingLeft: 0,
+  //     }}
+  //   >
+  //       <PairDown
+  //         {...item}
+  //       />
+  //   </Animated.View>
+  //   );
+  // };
+  // renderPairsList = ({ item }) => {
+  //   const { width } = Dimensions.get('window');
+  //   return (
+  //     <Swipeable
+  //       renderLeftActions={this.renderLeftActions.bind(this, item)}
+  //       renderRightActions={this.renderRightActions.bind(this, item)}
+  //       // leftThreshold={width}
+  //     >
+  //       <Pair
+  //         onClose={this.deletePair}
+  //         {...item}
+  //       />
+  //     </Swipeable>
+  //   );
+  // }
+
+  // onRowOpen = (id) => {
+  //   this.deletePair(id)
+  // }
 
   render() {
     const { errors, optionValue, optionItems, loading } = this.state;
     const { tradePairs } = this.props;
+
     return (
         <View>
           {!!errors &&
@@ -146,19 +200,28 @@ class UserScreenComponent extends Component {
               floatText='Choose symbol'
               error={errors.option}
           />
-          <TouchableOpacity
-              className="primary"
+          <Button
               onPress={this.addPair}
-              style={userScreenStyles.button}
-          >
-            <Text style={userScreenStyles.buttonText}>Add pair</Text>
-          </TouchableOpacity>
+              buttonStyle={userScreenStyles.button}
+              textStyle={userScreenStyles.buttonText}
+              title="Add pair"
+          />
 
-          <FlatList
-              style={userScreenStyles.pairsListStyle}
-              data={tradePairs}
-              renderItem={this.renderPairsList}
-              keyExtractor={item => item._id}
+          {/*<FlatList*/}
+            {/*style={userScreenStyles.pairsListStyle}*/}
+            {/*data={tradePairs}*/}
+            {/*renderItem={this.renderPairsList}*/}
+            {/*keyExtractor={item => item._id}*/}
+          {/*/>*/}
+
+          <DeleteSwipeList
+            style={userScreenStyles.pairsListStyle}
+            data={tradePairs}
+            leftSide={{ component: PairDown }}
+            center={{ component: Pair }}
+            onDelete={this.deletePair}
+            keyItem="_id"
+            itemHeight={'100%'}
           />
 
         </View>
@@ -191,5 +254,5 @@ export const UserScreen = withNavigation(connect(mapState, {
   clearUser,
   getWhaleOrders,
   deletePercentPair,
-  setPowerPercents
+  setPowerPercents,
 })(UserScreenComponent));

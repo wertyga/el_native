@@ -16,24 +16,6 @@ class UserMenuComponent extends Component {
     this.state = {
       menuRight: new Animated.Value(-200),
     };
-    this.menuItems = [
-        {
-            name: 'Settings',
-            screen: 'Settings',
-        },
-        {
-            name: 'Whale orders',
-            screen: 'Whales',
-        },
-        {
-            name: 'Power symbols',
-            screen: 'Power',
-        },
-        {
-            name: 'About',
-            screen: 'About',
-        },
-    ];
   }
 
   componentDidUpdate(prevProps) {
@@ -50,6 +32,34 @@ class UserMenuComponent extends Component {
     }
   }
 
+  renderMenuItems = () => {
+    const menuItems = [
+      {
+        name: 'Settings',
+        screen: 'Settings',
+      },
+      {
+        name: 'Whale orders',
+        screen: 'WhalesScreen',
+      },
+      {},
+      {
+        name: 'About',
+        screen: 'AboutScreen',
+      },
+    ];
+    if (this.props.user.isCool) {
+      menuItems[2] = {
+        name: 'Power symbols',
+        screen: 'PowerScreen',
+      };
+    } else {
+      menuItems.splice(2, 1);
+    }
+
+    return menuItems;
+  }
+
   menuNavigate = (screen) => {
       const { navigation: { navigate } } = this.props;
       this.props.setMenuState();
@@ -62,7 +72,7 @@ class UserMenuComponent extends Component {
 
     return (
         <Animated.View style={menuSlideStyle}>
-          {this.menuItems.map(({ name, screen }) => {
+          {this.renderMenuItems().map(({ name, screen }) => {
             return (
                 <Text
                     pointerEvents="none"
@@ -79,9 +89,10 @@ class UserMenuComponent extends Component {
   }
 }
 
-const mapState = ({ menu }) => {
+const mapState = ({ menu, user }) => {
   return {
-    menuState: menu
+    menuState: menu,
+    user,
   }
 }
 
