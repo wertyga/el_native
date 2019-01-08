@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "native",
+    "name": "crypto-signer",
     "slug": "Crypto",
     "privacy": "public",
     "sdkVersion": "31.0.0",
@@ -24,11 +24,8 @@
     "ios": {
       "supportsTablet": true
     },
-    "permissions": [
-      "expo.android.package"
-    ]
-  },
-  "android": {
-    "package": "com.we.cryptosigner"
+    "android": {
+      "package": "com.we.cryptosigner"
+    }
   }
 }

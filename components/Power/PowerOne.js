@@ -57,14 +57,16 @@ class PowerOneComponent extends React.Component {
 
   render() {
     const { symbol, percent, close, high, low, updatedAt } = this.props;
-    const { errors, disabled, style } = this.props;
+    const { errors, disabled, style = {} } = this.props;
     const quoteAsset = symbol.match(/BTC|ETH/);
-    const { textTitleStyle, itemStyle, textStyle, textPositive, textNegative } = powerStyle;
+    const { textTitleStyle, itemStyle, textStyle, textPositive, textNegative, wrapperStyle } = powerStyle;
+
+    const mainStyle = { ...style, ...wrapperStyle };
 
     return (
       <TouchableOpacity
         disabled={disabled}
-        style={style}
+        style={mainStyle}
       >
         {errors && <Text className="error">{errors}</Text>}
 

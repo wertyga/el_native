@@ -107,77 +107,6 @@ class UserScreenComponent extends Component {
     });
   }
 
-  // renderPairsList = ({ item }) => {
-  //   return {
-  //     component: Pair,
-  //     props: {
-  //       onClose: this.deletePair,
-  //       ...item
-  //     },
-  //   };
-  // }
-  // renderRightActions = ({ _id }, progress, dragX) => {
-  //   const translateX = dragX.interpolate({
-  //     inputRange: [-300, 0],
-  //     outputRange: [13, 320],
-  //   });
-  //   return (
-  //     <Animated.View
-  //       style={{
-  //         transform: [{ translateX }],
-  //         flex: 1,
-  //         width: '100%',
-  //         paddingLeft: 0,
-  //       }}
-  //     >
-  //       <Button
-  //         buttonStyle={userScreenStyles.buttonDanger}
-  //         title="Delete"
-  //         onPress={this.deletePair.bind(this, _id)}
-  //       />
-  //     </Animated.View>
-  //   );
-  // };
-  // renderLeftActions = (item, progress, dragX) => {
-  //   const translateX = dragX.interpolate({
-  //     inputRange: [0, 300],
-  //     outputRange: [-200, -7],
-  //   });
-  //   return (
-  //   <Animated.View
-  //     style={{
-  //       transform: [{ translateX }],
-  //       flex: 1,
-  //       width: '100%',
-  //       paddingLeft: 0,
-  //     }}
-  //   >
-  //       <PairDown
-  //         {...item}
-  //       />
-  //   </Animated.View>
-  //   );
-  // };
-  // renderPairsList = ({ item }) => {
-  //   const { width } = Dimensions.get('window');
-  //   return (
-  //     <Swipeable
-  //       renderLeftActions={this.renderLeftActions.bind(this, item)}
-  //       renderRightActions={this.renderRightActions.bind(this, item)}
-  //       // leftThreshold={width}
-  //     >
-  //       <Pair
-  //         onClose={this.deletePair}
-  //         {...item}
-  //       />
-  //     </Swipeable>
-  //   );
-  // }
-
-  // onRowOpen = (id) => {
-  //   this.deletePair(id)
-  // }
-
   render() {
     const { errors, optionValue, optionItems, loading } = this.state;
     const { tradePairs } = this.props;
@@ -207,13 +136,6 @@ class UserScreenComponent extends Component {
               title="Add pair"
           />
 
-          {/*<FlatList*/}
-            {/*style={userScreenStyles.pairsListStyle}*/}
-            {/*data={tradePairs}*/}
-            {/*renderItem={this.renderPairsList}*/}
-            {/*keyExtractor={item => item._id}*/}
-          {/*/>*/}
-
           <DeleteSwipeList
             style={userScreenStyles.pairsListStyle}
             data={tradePairs}
@@ -221,7 +143,7 @@ class UserScreenComponent extends Component {
             center={{ component: Pair }}
             onDelete={this.deletePair}
             keyItem="_id"
-            itemHeight={'100%'}
+            itemHeight={70}
           />
 
         </View>

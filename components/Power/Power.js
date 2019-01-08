@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { clearSession } from 'common';
 import { WithUserMenu, Loading, DeleteSwipeList } from 'common-components';
-import { fetchPowerSymbols, deleteAllPower } from 'actions';
+import { fetchPowerSymbols, deleteAllPower, deletePower } from 'actions';
 
 import { PowerOne, PairOneDetails } from './PowerOne';
 
@@ -109,7 +109,7 @@ class PowerPercentsComponent extends Component {
                 leftSide={{ component: PairOneDetails }}
                 onDelete={this.deletePower}
                 keyItem="_id"
-                itemHeight={'100%'}
+                itemHeight={70}
                 onViewableItemsChanged={this.onViewableItemsChanged}
               />
             </View>
@@ -133,4 +133,4 @@ const mapState = ({ powerPercents, user }) => {
   }
 };
 
-export const PowerPercents = connect(mapState, { fetchPowerSymbols, deleteAllPower })(PowerPercentsComponent);
+export const PowerPercents = connect(mapState, { fetchPowerSymbols, deleteAllPower, deletePower })(PowerPercentsComponent);

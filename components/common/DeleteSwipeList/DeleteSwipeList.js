@@ -14,6 +14,10 @@ export class DeleteSwipeList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      activated: [],
+    };
+
     this.rowTranslateAnimatedValues = {};
     this.viewabilityConfig = {
       itemVisiblePercentThreshold: 50,
@@ -88,7 +92,8 @@ export class DeleteSwipeList extends Component {
                 inputRange: [0, 1],
                 outputRange: [0, itemHeight],
               }),
-              ...renderItemStyle(this.rowTranslateAnimatedValues[key].activated),
+              ...renderItemStyle,
+              display: this.state.activated.indexOf(key) !== -1 ? 'none' : 'flex',
             }}
           >
             <center.component
@@ -104,7 +109,7 @@ export class DeleteSwipeList extends Component {
   deleteHandler = (key) => {
     Animated.timing(this.rowTranslateAnimatedValues[key].value, { toValue: 0, duration: 200 })
       .start(() => {
-        this.rowTranslateAnimatedValues[key].activated = true;
+        this.setState({ activated: [...this.state.activated, key] });
         this.props.onDelete(key);
       })
   }

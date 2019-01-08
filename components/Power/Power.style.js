@@ -18,6 +18,10 @@ const textBoldStyle = {
 };
 
 export const powerStyle = {
+  wrapperStyle: {
+    alignItems: 'flex-start',
+    width: '100%',
+  },
   emptyTextStyle: {
     ...textBoldStyle,
     textAlign: 'center',
