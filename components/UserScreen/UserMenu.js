@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 import { View, Text, Animated, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { setMenuState } from 'actions';
@@ -33,7 +34,12 @@ class UserMenuComponent extends Component {
   }
 
   renderMenuItems = () => {
+    if (isEmpty(this.props.user)) return [];
     const menuItems = [
+      {
+        name: 'Main',
+        screen: 'MainScreen',
+      },
       {
         name: 'Settings',
         screen: 'Settings',
@@ -49,12 +55,12 @@ class UserMenuComponent extends Component {
       },
     ];
     if (this.props.user.isCool) {
-      menuItems[2] = {
+      menuItems[3] = {
         name: 'Power symbols',
         screen: 'PowerScreen',
       };
     } else {
-      menuItems.splice(2, 1);
+      menuItems.splice(3, 1);
     }
 
     return menuItems;

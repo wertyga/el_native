@@ -35,4 +35,7 @@ export const userScreenStyles = StyleSheet.create({
       ...globalError,
     flexDirection: 'row',
   },
+  deleteButtonStyle: {
+    marginTop: 10,
+  },
 })

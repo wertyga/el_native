@@ -11,3 +11,4 @@ export { UserSettings } from './UserSettings/UserSettings';
 export { MenuIcon } from './HeaderMenu/HeaderMenuIcon';
 export { Whales } from './Whales/Whales';
 export { PowerPercents } from './Power/Power';
+export { About } from './About/About';

@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import io from "socket.io-client";
-
 import isEmpty from "lodash/isEmpty";
 
 import { View, Text, AsyncStorage } from 'react-native';
-import ViewOverflow from 'react-native-view-overflow';
 
 import { Loading, Toggle } from 'common-components';
 import { setPowerPercents, getUserData, updatePairsPrice, clearUser } from 'actions';
@@ -17,6 +15,9 @@ import { UserMenu } from 'components';
 
 import { socketStyles } from './socketWrapperStyles.style';
 
+import { registerForPushNotificationsAsync } from '../Notification/Notification';
+import { Notifications } from 'expo';
+
 class SocketWrapperComponent extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,11 @@ class SocketWrapperComponent extends Component {
       loading: true,
       errors: ''
     };
-  };
+  }
+
+  componentWillMount() {
+    this.listener = Notifications.addListener(this.listen);
+  }
 
  componentDidMount() {
    this.props.navigation.setParams({ onLogout: this.logout });
@@ -59,7 +64,10 @@ class SocketWrapperComponent extends Component {
 
   componentWillUnmount() {
     if(this.socket) this.socket.close();
-  };
+    this.listener && typeof Notifications.removeListener === 'function' && Notifications.removeListener(this.listen);
+  }
+
+  listen(data) {}
 
   setupNavParams = () => {
     const { username } = this.props.user;
@@ -78,10 +86,12 @@ class SocketWrapperComponent extends Component {
       AsyncStorage.getItem('id'),
     ])
     .then(([token, id]) => {
+
       if (!token || !id) {
         this.props.navigation.navigate('LoginScreen');
         return false;
       }
+      registerForPushNotificationsAsync(id);
       return id;
     })
   }

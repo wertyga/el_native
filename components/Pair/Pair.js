@@ -82,7 +82,7 @@ export class Pair extends PureComponent {
       priceStyle,
       upperStyle,
       wrapperStyle,
-      diffPriceWrappeStyle,
+      diffPriceWrapperStyle,
       reachedPriceStyle,
       isUpPriceStyle,
       itemViewTitle,
@@ -110,7 +110,7 @@ export class Pair extends PureComponent {
 
               <Text style={priceStyle}>{price}</Text>
 
-              <View style={diffPriceWrappeStyle}>
+              <View style={diffPriceWrapperStyle}>
                 <Text style={isUpPriceStyle(diffPrice, loading)}>{diffPrice}</Text>
               </View>
 

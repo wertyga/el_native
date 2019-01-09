@@ -14,6 +14,7 @@ import {
   UserScreen,
   Whales,
   PowerPercents,
+  About,
 } from 'components';
 
 const Navigation = createStackNavigator(
@@ -93,7 +94,15 @@ const Navigation = createStackNavigator(
       },
 
       PowerScreen: {
-        screen: props => <PowerPercents {...props} />,
+      screen: props => <PowerPercents {...props} />,
+      navigationOptions: () => ({
+        title: 'Bounce symbols',
+        headerRight: <MenuIcon />,
+      }),
+    },
+
+      AboutScreen: {
+        screen: props => <About {...props} />,
         navigationOptions: () => ({
           title: 'Bounce symbols',
           headerRight: <MenuIcon />,

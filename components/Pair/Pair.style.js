@@ -21,12 +21,15 @@ export const pairStyles = {
   },
   itemViewStyle: {
     flexDirection: 'row',
+    marginTop: 10,
   },
   wrapperContent: {
     justifyContent: 'center',
     flex: 1,
   },
   signStyle: {
+    height: '70%',
+    alignSelf: 'center',
     width: 5,
     marginRight: 10,
     backgroundColor: positiveColor,
@@ -58,7 +61,7 @@ export const pairStyles = {
   priceStyle: {
     color: fontColor,
   },
-  diffPriceWrappeStyle: {
+  diffPriceWrapperStyle: {
     justifyContent: 'flex-start',
   },
   textLight: {
@@ -69,6 +72,7 @@ export const pairStyles = {
     justifyContent: 'space-between',
     marginBottom: 10,
     alignItems: 'center',
+    marginTop: 10,
   },
   downStyle: {},
 };

@@ -38,6 +38,7 @@ export class DeleteSwipeList extends Component {
         }}
       >
         <Button
+          containerViewStyle={this.props.buttonStyle}
           rightIcon={{ name: 'delete-forever', size: 25 }}
           buttonStyle={buttonDeleteStyle}
           textStyle={{ fontWeight: 'bold' }}
@@ -128,6 +129,10 @@ export class DeleteSwipeList extends Component {
       />
     );
   }
+}
+
+DeleteSwipeList.defaultProps = {
+  buttonStyle: {},
 }
 
 DeleteSwipeList.propTypes = {

@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, Keyboard, Dimensions, Animated } from 'react-native';
-
-import { SwipeListView } from 'react-native-swipe-list-view';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { FlatList, RectButton } from 'react-native-gesture-handler';
+import { View, Text, Keyboard } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
-import { Button, List, ListItem } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 import { clearSession } from 'common';
 
@@ -22,7 +16,6 @@ import { Pair, PairDown } from 'components';
 
 import { userScreenStyles } from './UserScreen.style';
 
-// const AnimatedPairDown = Animated.createAnimatedComponent(PairDown);
 
 class UserScreenComponent extends Component {
   constructor(props) {
@@ -144,6 +137,7 @@ class UserScreenComponent extends Component {
             onDelete={this.deletePair}
             keyItem="_id"
             itemHeight={70}
+            buttonStyle={userScreenStyles.deleteButtonStyle}
           />
 
         </View>
